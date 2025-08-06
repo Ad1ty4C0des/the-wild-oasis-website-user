@@ -1,0 +1,23 @@
+/* In app/_components/DateSelector.module.css */
+
+.calendar {
+  --rdp-cell-size: 30px !important; /* Original was 32px or 40px */
+  --rdp-accent-color: #e97451 !important; /* accent-500 */
+  --rdp-background-color: #a35233 !important; /* accent-600 */
+  margin: 0 !important;
+}
+
+/* Reduce the font size for the month and year caption */
+.calendar :global(.rdp-caption_label) {
+  font-size: 1rem; /* Adjust as needed */
+}
+
+/* Reduce the font size for the day numbers */
+.calendar :global(.rdp-day) {
+  font-size: 0.8rem; /* Adjust as needed */
+}
+
+/* Reduce the font size for the weekday names (Mo, Tu, etc.) */
+.calendar :global(.rdp-head_cell) {
+  font-size: 0.9rem; /* Adjust as needed */
+}
