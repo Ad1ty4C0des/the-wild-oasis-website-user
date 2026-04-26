@@ -8,13 +8,13 @@ import {
 } from "date-fns";
 
 import { DayPicker } from "react-day-picker";
-import "react-day-picker/dist/style.css";
+import "react-day-picker/style.css";
 import { useReservation } from "./ReservationContext";
 
 function isAlreadyBooked(range, datesArr) {
   return (
-    range.from &&
-    range.to &&
+    range?.from &&
+    range?.to &&
     datesArr.some((date) =>
       isWithinInterval(date, { start: range.from, end: range.to })
     )
@@ -24,10 +24,20 @@ function isAlreadyBooked(range, datesArr) {
 function DateSelector({ cabin, bookedDates, settings }) {
   const { range, setRange, resetRange } = useReservation();
 
-  const displayRange = isAlreadyBooked(range, bookedDates) ? {} : range;
+  // In react-day-picker v9, onSelect can pass undefined when deselecting
+  function handleSelect(selectedRange) {
+    setRange(selectedRange ?? { from: undefined, to: undefined });
+  }
+
+  const displayRange = isAlreadyBooked(range, bookedDates)
+    ? {}
+    : range ?? {};
 
   const { regularPrice, discount } = cabin;
-  const numNights = differenceInDays(displayRange.to, displayRange.from);
+  const numNights =
+    displayRange?.from && displayRange?.to
+      ? differenceInDays(displayRange.to, displayRange.from)
+      : 0;
   const cabinPrice = numNights * (regularPrice - discount);
 
   // SETTINGS
@@ -38,7 +48,7 @@ function DateSelector({ cabin, bookedDates, settings }) {
       <DayPicker
         className={`pt-12 place-self-center`}
         mode="range"
-        onSelect={setRange}
+        onSelect={handleSelect}
         selected={displayRange}
         min={minBookingLength + 1}
         max={maxBookingLength}
@@ -81,7 +91,7 @@ function DateSelector({ cabin, bookedDates, settings }) {
           ) : null}
         </div>
 
-        {range.from || range.to ? (
+        {range?.from || range?.to ? (
           <button
             className="border border-primary-800 py-2 px-4 text-sm font-semibold"
             onClick={resetRange}
