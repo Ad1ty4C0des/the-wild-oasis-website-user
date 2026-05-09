@@ -44,9 +44,9 @@ function DateSelector({ cabin, bookedDates, settings }) {
   const { minBookingLength, maxBookingLength } = settings;
 
   return (
-    <div className="flex flex-col justify-between">
+    <div className="flex flex-col">
       <DayPicker
-        className={`pt-12 place-self-center`}
+        className="pt-4 pb-2 place-self-center rdp-dark cabin-detail-rdp"
         mode="range"
         onSelect={handleSelect}
         selected={displayRange}
@@ -55,7 +55,7 @@ function DateSelector({ cabin, bookedDates, settings }) {
         startMonth={new Date(2025, 7)}
         endMonth={new Date(2030, 11)}
         captionLayout="dropdown"
-        numberOfMonths={2}
+        numberOfMonths={1}
         animate
         disabled={(curDate) =>
           isPast(curDate) ||
@@ -63,43 +63,32 @@ function DateSelector({ cabin, bookedDates, settings }) {
         }
       />
 
-      <div className="flex items-center justify-between px-8 bg-accent-500 text-primary-800 h-[72px]">
-        <div className="flex items-baseline gap-6">
-          <p className="flex gap-2 items-baseline">
-            {discount > 0 ? (
-              <>
-                <span className="text-2xl">${regularPrice - discount}</span>
-                <span className="line-through font-semibold text-primary-700">
-                  ${regularPrice}
-                </span>
-              </>
-            ) : (
-              <span className="text-2xl">${regularPrice}</span>
-            )}
-            <span className="">/night</span>
-          </p>
-          {numNights ? (
-            <>
-              <p className="bg-accent-600 px-3 py-2 text-2xl">
-                <span>&times;</span> <span>{numNights}</span>
-              </p>
-              <p>
-                <span className="text-lg font-bold uppercase">Total</span>{" "}
-                <span className="text-2xl font-semibold">${cabinPrice}</span>
-              </p>
-            </>
-          ) : null}
+      {/* Price Breakdown */}
+      {numNights > 0 && (
+        <div className="mx-unit-lg mb-unit-md pt-unit-md border-t border-outline-variant/30 space-y-3">
+          <div className="flex justify-between font-body text-body-md text-on-surface-variant">
+            <span>
+              ${regularPrice - discount} × {numNights} nights
+            </span>
+            <span>${cabinPrice}</span>
+          </div>
+          <div className="flex justify-between font-display text-body-md text-ds-primary pt-3 border-t border-outline-variant/30">
+            <span className="font-semibold">Total</span>
+            <span className="font-semibold">${cabinPrice}</span>
+          </div>
         </div>
+      )}
 
-        {range?.from || range?.to ? (
+      {range?.from || range?.to ? (
+        <div className="px-unit-lg pb-unit-sm">
           <button
-            className="border border-primary-800 py-2 px-4 text-sm font-semibold"
+            className="w-full border border-outline-variant/50 py-2 px-4 text-sm font-body font-semibold text-on-surface-variant rounded-lg hover:bg-surface-container-high/50 transition-colors"
             onClick={resetRange}
           >
-            Clear
+            Clear dates
           </button>
-        ) : null}
-      </div>
+        </div>
+      ) : null}
     </div>
   );
 }

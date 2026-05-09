@@ -24,33 +24,35 @@ function ReservationCard({ booking, onDelete }) {
   } = booking;
 
   return (
-    <div className="flex border border-primary-800">
-      <div className="relative h-32 aspect-square">
+    <div className="glass-panel-subtle rounded-xl overflow-hidden flex group hover:scale-[1.005] transition-transform duration-500">
+      {/* Image */}
+      <div className="relative h-auto w-36 flex-shrink-0">
         <Image
           src={image}
           fill
           alt={`Cabin ${name}`}
-          className="object-cover border-r border-primary-800"
+          className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
         />
       </div>
 
-      <div className="flex-grow px-6 py-3 flex flex-col">
-        <div className="flex items-center justify-between">
-          <h3 className="text-xl font-semibold">
+      {/* Content */}
+      <div className="flex-grow px-6 py-4 flex flex-col">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="font-display text-headline-md text-on-surface">
             {numNights} nights in Cabin {name}
           </h3>
           {isPast(new Date(startDate)) ? (
-            <span className="bg-yellow-800 text-yellow-200 h-7 px-3 uppercase text-xs font-bold flex items-center rounded-sm">
+            <span className="bg-secondary-container text-on-secondary-container h-7 px-3 uppercase text-label-sm font-bold flex items-center rounded-full">
               past
             </span>
           ) : (
-            <span className="bg-green-800 text-green-200 h-7 px-3 uppercase text-xs font-bold flex items-center rounded-sm">
+            <span className="bg-primary-container text-on-primary-container h-7 px-3 uppercase text-label-sm font-bold flex items-center rounded-full">
               upcoming
             </span>
           )}
         </div>
 
-        <p className="text-lg text-primary-300">
+        <p className="font-body text-body-md text-on-surface-variant">
           {format(new Date(startDate), "EEE, MMM dd yyyy")} (
           {isToday(new Date(startDate))
             ? "Today"
@@ -58,26 +60,29 @@ function ReservationCard({ booking, onDelete }) {
           ) &mdash; {format(new Date(endDate), "EEE, MMM dd yyyy")}
         </p>
 
-        <div className="flex gap-5 mt-auto items-baseline">
-          <p className="text-xl font-semibold text-accent-400">${totalPrice}</p>
-          <p className="text-primary-300">&bull;</p>
-          <p className="text-lg text-primary-300">
+        <div className="flex gap-5 mt-auto items-baseline pt-3">
+          <p className="font-display text-headline-md text-secondary">
+            ${totalPrice}
+          </p>
+          <p className="text-on-surface-variant">&bull;</p>
+          <p className="font-body text-body-md text-on-surface-variant">
             {numGuests} guest{numGuests > 1 && "s"}
           </p>
-          <p className="ml-auto text-sm text-primary-400">
+          <p className="ml-auto font-body text-label-sm text-on-surface-variant opacity-60">
             Booked {format(new Date(created_at), "EEE, MMM dd yyyy, p")}
           </p>
         </div>
       </div>
 
-      <div className="flex flex-col border-l border-primary-800 w-[100px]">
+      {/* Actions */}
+      <div className="flex flex-col border-l border-white/10 w-[100px]">
         {!isPast(startDate) ? (
           <>
             <Link
               href={`/account/reservations/edit/${id}`}
-              className="group flex items-center gap-2 uppercase text-xs font-bold text-primary-300 border-b border-primary-800 flex-grow px-3 hover:bg-accent-600 transition-colors hover:text-primary-900"
+              className="group/btn flex items-center gap-2 uppercase text-label-sm font-bold text-on-surface-variant border-b border-white/10 flex-grow px-3 hover:bg-secondary/20 transition-colors"
             >
-              <PencilSquareIcon className="h-5 w-5 text-primary-600 group-hover:text-primary-800 transition-colors" />
+              <PencilSquareIcon className="h-5 w-5 text-on-surface-variant group-hover/btn:text-secondary transition-colors" />
               <span className="mt-1">Edit</span>
             </Link>
 

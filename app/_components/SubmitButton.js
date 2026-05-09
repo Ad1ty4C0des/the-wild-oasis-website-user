@@ -6,7 +6,7 @@ export default function SubmitButton({ children, pendingLabel }) {
   const { pending } = useFormStatus();
   return (
     <button
-      className="bg-accent-500 px-8 py-4 text-primary-800 font-semibold hover:bg-accent-600 transition-all disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300"
+      className="w-full bg-secondary text-on-secondary px-8 py-4 rounded-lg font-body text-label-md hover:bg-bronze-hover transition-all duration-300 disabled:cursor-not-allowed disabled:bg-surface-container-high disabled:text-on-surface-variant shadow-[0_4px_14px_rgba(198,153,99,0.2)]"
       disabled={pending}
     >
       {pending ? pendingLabel : children}

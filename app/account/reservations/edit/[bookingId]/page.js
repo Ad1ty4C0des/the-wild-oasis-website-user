@@ -9,22 +9,30 @@ export default async function Page({ params }) {
 
   return (
     <div>
-      <h2 className="font-semibold text-2xl text-accent-400 mb-7">
+      <h2 className="font-display text-headline-lg text-on-surface mb-2">
         Edit Reservation #{bookingId}
       </h2>
+      <p className="font-body text-body-md text-on-surface-variant mb-8">
+        Update details for your upcoming stay.
+      </p>
 
       <form
         action={updateBooking}
-        className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col"
+        className="glass-panel-subtle rounded-xl py-8 px-8 flex gap-6 flex-col"
       >
         <input type="hidden" value={bookingId} name="bookingId" />
         <div className="space-y-2">
-          <label htmlFor="numGuests">How many guests?</label>
+          <label
+            htmlFor="numGuests"
+            className="font-body text-label-sm text-on-surface-variant uppercase tracking-wider"
+          >
+            How many guests?
+          </label>
           <select
             name="numGuests"
             id="numGuests"
             defaultValue={numGuests}
-            className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
+            className="px-4 py-3 bg-surface-container-high border border-outline-variant/50 text-on-surface w-full rounded-lg focus:ring-1 focus:ring-secondary focus:border-secondary transition-colors"
             required
           >
             <option value="" key="">
@@ -39,13 +47,16 @@ export default async function Page({ params }) {
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="observations">
+          <label
+            htmlFor="observations"
+            className="font-body text-label-sm text-on-surface-variant uppercase tracking-wider"
+          >
             Anything we should know about your stay?
           </label>
           <textarea
             name="observations"
             defaultValue={observations}
-            className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
+            className="px-4 py-3 bg-surface-container-high border border-outline-variant/50 text-on-surface w-full rounded-lg focus:ring-1 focus:ring-secondary focus:border-secondary transition-colors min-h-[100px] resize-none"
           />
         </div>
 

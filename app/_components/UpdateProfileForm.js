@@ -12,31 +12,40 @@ function UpdateProfileForm({ guest, children }) {
   return (
     <form
       action={updateGuest}
-      className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col"
+      className="glass-panel-subtle rounded-xl py-8 px-8 flex gap-6 flex-col"
     >
       <div className="space-y-2">
-        <label>Full name</label>
+        <label className="font-body text-label-sm text-on-surface-variant uppercase tracking-wider">
+          Full name
+        </label>
         <input
           disabled
           defaultValue={fullName}
           name="fullName"
-          className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
+          className="px-4 py-3 bg-surface-container-high border border-outline-variant/50 text-on-surface w-full rounded-lg disabled:cursor-not-allowed disabled:opacity-50"
         />
       </div>
 
       <div className="space-y-2">
-        <label>Email address</label>
+        <label className="font-body text-label-sm text-on-surface-variant uppercase tracking-wider">
+          Email address
+        </label>
         <input
           disabled
           defaultValue={email}
           name="email"
-          className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
+          className="px-4 py-3 bg-surface-container-high border border-outline-variant/50 text-on-surface w-full rounded-lg disabled:cursor-not-allowed disabled:opacity-50"
         />
       </div>
 
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <label htmlFor="nationality">Where are you from?</label>
+          <label
+            htmlFor="nationality"
+            className="font-body text-label-sm text-on-surface-variant uppercase tracking-wider"
+          >
+            Where are you from?
+          </label>
           <img
             src={countryFlag}
             alt="Country flag"
@@ -48,11 +57,16 @@ function UpdateProfileForm({ guest, children }) {
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="nationalID">National ID number</label>
+        <label
+          htmlFor="nationalID"
+          className="font-body text-label-sm text-on-surface-variant uppercase tracking-wider"
+        >
+          National ID number
+        </label>
         <input
           defaultValue={nationalID}
           name="nationalID"
-          className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
+          className="px-4 py-3 bg-surface-container-high border border-outline-variant/50 text-on-surface w-full rounded-lg focus:ring-1 focus:ring-secondary focus:border-secondary transition-colors"
         />
       </div>
 

@@ -2,14 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  ::selection {
+    background-color: rgba(181, 204, 192, 0.3);
+    color: #d0e8dc;
+  }
+}
+
 @layer components {
+  /* Glassmorphism panels */
+  .glass-panel {
+    background: rgba(26, 46, 38, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-panel-light {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-panel-subtle {
+    background: rgba(27, 32, 38, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .ghost-border {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Spinner */
   .spinner {
     margin: 3.2rem auto 1.6rem;
     width: 60px;
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 8px solid theme("colors.primary.900");
-    border-right-color: theme("colors.primary.200");
+    border: 3px solid #1a2e26;
+    border-right-color: #b5ccc0;
     animation: rotate 1s infinite linear;
   }
 
@@ -18,7 +56,7 @@
     width: 20px;
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 2px solid theme("colors.primary.200");
+    border: 2px solid #b5ccc0;
     border-right-color: transparent;
     animation: rotate 1s infinite linear;
   }
@@ -28,18 +66,53 @@
       transform: rotate(1turn);
     }
   }
+
+  /* Hide scrollbar for clean horizontal scroll areas */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
-/* For date picker */
+/* Date picker overrides for dark theme */
 .rdp-root {
-  --rdp-cell-size: 32px !important;
-  --rdp-accent-color: theme("colors.accent.500") !important;
-  --rdp-background-color: theme("colors.accent.600") !important;
+  --rdp-cell-size: 36px !important;
+  --rdp-accent-color: #c69963 !important;
+  --rdp-background-color: #644214 !important;
   margin: 0 !important;
 }
 .rdp {
-  --rdp-cell-size: 32px !important;
-  --rdp-accent-color: theme("colors.accent.500") !important;
-  --rdp-background-color: theme("colors.accent.600") !important;
+  --rdp-cell-size: 36px !important;
+  --rdp-accent-color: #c69963 !important;
+  --rdp-background-color: #644214 !important;
   margin: 0 !important;
 }
+
+/* Make date picker text readable on dark backgrounds */
+.rdp-root button,
+.rdp-root span {
+  color: #dee3eb;
+}
+.rdp-root .rdp-day_selected,
+.rdp-root .rdp-day_selected:hover {
+  color: #2a1700 !important;
+}
+
+/* Compact date picker for cabin detail booking widget */
+.cabin-detail-rdp .rdp-root {
+  --rdp-cell-size: 30px !important;
+  font-size: 13px;
+}
+.cabin-detail-rdp {
+  transform: scale(0.92);
+  transform-origin: top center;
+}
+
+/* Material Symbols for amenity icons */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+}
+

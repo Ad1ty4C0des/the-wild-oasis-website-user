@@ -1,4 +1,3 @@
-import { UsersIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,56 +5,81 @@ function CabinCard({ cabin }) {
   const { id, name, maxCapacity, regularPrice, discount, image } = cabin;
 
   return (
-    <div className="flex border-primary-800 border">
-      <div className="flex-1 relative">
-        <Image
-          src={image}
-          fill
-          alt={`Cabin ${name}`}
-          className="object-cover border-r border-primary-800"
-        />
-      </div>
+    <Link href={`/cabins/${id}`} className="block h-full">
+      <article className="group relative rounded-xl overflow-hidden bg-surface-container border border-outline-variant/20 flex flex-col h-full transition-transform duration-500 hover:scale-[1.01]">
+        {/* Image */}
+        <div className="relative h-64 overflow-hidden">
+          <Image
+            src={image}
+            fill
+            alt={`Cabin ${name}`}
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute top-4 right-4 bg-surface/80 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10">
+            <span className="font-body text-label-sm text-on-surface uppercase tracking-wider">
+              Up to {maxCapacity} guests
+            </span>
+          </div>
+        </div>
 
-      <div className="flex-grow">
-        <div className="pt-5 pb-4 px-7 bg-primary-950">
-          <h3 className="text-accent-500 font-semibold text-2xl mb-3">
-            Cabin {name}
-          </h3>
-
-          <div className="flex gap-3 items-center mb-2">
-            <UsersIcon className="h-5 w-5 text-primary-600" />
-            <p className="text-lg text-primary-200">
-              For up to <span className="font-bold">{maxCapacity}</span> guests
-            </p>
+        {/* Card Body */}
+        <div className="p-6 flex flex-col flex-grow bg-surface-container relative z-10 border-t border-white/5">
+          <div className="flex justify-between items-start mb-2">
+            <h3 className="font-display text-headline-md text-on-surface">
+              Cabin {name}
+            </h3>
           </div>
 
-          <p className="flex gap-3 justify-end items-baseline">
-            {discount > 0 ? (
-              <>
-                <span className="text-3xl font-[350]">
-                  ${regularPrice - discount}
-                </span>
-                <span className="line-through font-semibold text-primary-600">
-                  ${regularPrice}
-                </span>
-              </>
-            ) : (
-              <span className="text-3xl font-[350]">${regularPrice}</span>
-            )}
-            <span className="text-primary-200">/ night</span>
+          <p className="font-body text-body-md text-on-surface-variant mb-6 line-clamp-2">
+            A luxurious retreat designed to blend with its natural surroundings,
+            offering uncompromised comfort for up to {maxCapacity} guests.
           </p>
-        </div>
 
-        <div className="bg-primary-950 border-t border-t-primary-800 text-right">
-          <Link
-            href={`/cabins/${id}`}
-            className="border-l border-primary-800 py-4 px-6 inline-block hover:bg-accent-600 transition-all hover:text-primary-900"
-          >
-            Details & reservation &rarr;
-          </Link>
+          <div className="mt-auto flex items-center justify-between">
+            <div>
+              {discount > 0 ? (
+                <div className="flex items-baseline gap-2">
+                  <span className="font-display text-headline-md text-ds-primary">
+                    ${regularPrice - discount}
+                  </span>
+                  <span className="font-body text-body-md text-on-surface-variant line-through">
+                    ${regularPrice}
+                  </span>
+                  <span className="font-body text-body-md text-on-surface-variant">
+                    / night
+                  </span>
+                </div>
+              ) : (
+                <div className="flex items-baseline gap-2">
+                  <span className="font-display text-headline-md text-ds-primary">
+                    ${regularPrice}
+                  </span>
+                  <span className="font-body text-body-md text-on-surface-variant">
+                    / night
+                  </span>
+                </div>
+              )}
+            </div>
+
+            <span className="w-10 h-10 rounded-full border border-outline flex items-center justify-center text-on-surface group-hover:bg-secondary group-hover:text-on-secondary group-hover:border-secondary transition-colors duration-300">
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </span>
+          </div>
         </div>
-      </div>
-    </div>
+      </article>
+    </Link>
   );
 }
 

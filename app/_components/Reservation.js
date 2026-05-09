@@ -10,13 +10,37 @@ async function Reservation({ cabin }) {
     getBookedDatesByCabinId(cabin.id),
   ]);
   const session = await auth();
+
   return (
-    <div className="grid grid-cols-[3fr_2fr] border border-primary-800 min-h-[400px]">
+    <div className="rounded-xl bg-surface-container/40 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(26,46,38,0.2)] overflow-hidden">
+      {/* Price Header */}
+      <div className="px-unit-lg pt-unit-lg pb-unit-md">
+        <span className="font-display text-headline-lg text-ds-primary">
+          {cabin.discount > 0 ? (
+            <>
+              ${cabin.regularPrice - cabin.discount}
+              <span className="text-body-md text-on-surface-variant line-through ml-2">
+                ${cabin.regularPrice}
+              </span>
+            </>
+          ) : (
+            <>${cabin.regularPrice}</>
+          )}
+        </span>
+        <span className="font-body text-body-md text-on-surface-variant">
+          {" "}
+          / night
+        </span>
+      </div>
+
+      {/* Date Selector */}
       <DateSelector
         settings={settings}
         bookedDates={bookedDates}
         cabin={cabin}
       />
+
+      {/* Reservation Form or Login */}
       {session?.user ? (
         <ReservationForm cabin={cabin} user={session.user} />
       ) : (
