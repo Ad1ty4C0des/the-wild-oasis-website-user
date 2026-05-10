@@ -31,7 +31,7 @@ function Cabin({ cabin }) {
             <h1 className="font-display text-headline-xl text-ds-primary mb-unit-sm">
               Cabin {name}
             </h1>
-            <div className="flex gap-unit-lg mt-unit-md py-unit-md border-y border-outline-variant/30">
+            <div className="grid grid-cols-2 md:flex gap-4 md:gap-unit-lg mt-unit-md py-unit-md border-y border-outline-variant/30">
               <div className="flex flex-col">
                 <span className="font-body text-label-sm text-on-surface-variant uppercase tracking-wider">
                   Guests

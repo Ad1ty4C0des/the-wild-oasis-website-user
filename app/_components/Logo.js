@@ -16,7 +16,7 @@ function Logo() {
         alt="The Wild Oasis logo"
         className="transition-transform duration-500 group-hover:scale-105"
       />
-      <span className="font-display text-headline-md font-bold text-ds-primary tracking-tight">
+      <span className="hidden sm:block font-display text-headline-md font-bold text-ds-primary tracking-tight">
         The Wild Oasis
       </span>
     </Link>
