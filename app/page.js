@@ -64,23 +64,25 @@ export default async function Home() {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 animate-bounce z-10">
-          <span className="font-body text-label-sm text-on-surface tracking-widest uppercase">
-            Scroll
-          </span>
-          <svg
-            className="w-5 h-5 text-on-surface"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 14l-7 7m0 0l-7-7m7 7V3"
-            />
-          </svg>
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+          <div className="flex flex-col items-center gap-2 opacity-60 animate-bounce">
+            <span className="font-body text-label-sm text-on-surface tracking-widest uppercase">
+              Scroll
+            </span>
+            <svg
+              className="w-5 h-5 text-on-surface"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
+            </svg>
+          </div>
         </div>
       </section>
 
