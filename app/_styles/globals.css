@@ -77,17 +77,22 @@
   }
 }
 
-/* Date picker overrides for dark theme */
+/* Date picker overrides for dark theme (react-day-picker v9) */
 .rdp-root {
   --rdp-cell-size: 36px !important;
   --rdp-accent-color: #c69963 !important;
-  --rdp-background-color: #644214 !important;
-  margin: 0 !important;
-}
-.rdp {
-  --rdp-cell-size: 36px !important;
-  --rdp-accent-color: #c69963 !important;
-  --rdp-background-color: #644214 !important;
+  
+  /* Fixes the white background styling bug in ranges */
+  --rdp-accent-background-color: rgba(198, 153, 99, 0.18) !important;
+  --rdp-range_middle-background-color: rgba(198, 153, 99, 0.12) !important;
+  --rdp-range_middle-color: #dee3eb !important;
+  
+  --rdp-range_start-color: #0f141a !important;
+  --rdp-range_start-date-background-color: #c69963 !important;
+  --rdp-range_end-color: #0f141a !important;
+  --rdp-range_end-date-background-color: #c69963 !important;
+  
+  --rdp-today-color: #efbe85 !important;
   margin: 0 !important;
 }
 
@@ -96,9 +101,81 @@
 .rdp-root span {
   color: #dee3eb;
 }
-.rdp-root .rdp-day_selected,
-.rdp-root .rdp-day_selected:hover {
-  color: #2a1700 !important;
+
+/* Day hover states */
+.rdp-root .rdp-focusable:not(.rdp-disabled):not(.rdp-selected) button:hover {
+  background-color: rgba(198, 153, 99, 0.15) !important;
+}
+
+/* Today indicator style */
+.rdp-root .rdp-today:not(.rdp-outside):not(.rdp-range_start):not(.rdp-range_end) button {
+  font-weight: bold !important;
+  color: #efbe85 !important;
+}
+
+/* Fix dropdown select list styling (ugly white dropdowns with white text) */
+.rdp-root select,
+.rdp-root option {
+  background-color: #1b2026 !important;
+  color: #dee3eb !important;
+}
+
+/* Beautiful dropdown root container with subtle scale, hover & micro-animations */
+.rdp-root .rdp-dropdown_root {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+  padding: 4px 10px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  cursor: pointer !important;
+  position: relative !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Hover state: slight slide up and background glow */
+.rdp-root .rdp-dropdown_root:hover {
+  background-color: rgba(255, 255, 255, 0.09) !important;
+  border-color: rgba(198, 153, 99, 0.4) !important;
+  transform: translateY(-1px);
+}
+
+/* Focus state: golden bronze border glow */
+.rdp-root .rdp-dropdown_root:focus-within {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  border-color: #c69963 !important;
+  box-shadow: 0 0 0 2px rgba(198, 153, 99, 0.2) !important;
+}
+
+/* Chevron icons inside dropdowns with rotating transition on active */
+.rdp-root .rdp-chevron {
+  fill: #c69963 !important;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.rdp-root .rdp-dropdown_root:hover .rdp-chevron {
+  transform: scale(1.1);
+}
+
+.rdp-root .rdp-dropdown_root:focus-within .rdp-chevron {
+  transform: rotate(180deg);
+}
+
+.rdp-root select {
+  cursor: pointer !important;
+  outline: none !important;
+  border: none !important;
+}
+
+/* Disable the browser's default highlight/outline boxes on the inner labels and select when focused */
+.rdp-root .rdp-dropdown:focus-visible ~ .rdp-caption_label,
+.rdp-root select:focus,
+.rdp-root select:focus-visible,
+.rdp-root .rdp-dropdown_root:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 
 /* Compact date picker for cabin detail booking widget */
@@ -109,6 +186,45 @@
 .cabin-detail-rdp {
   transform: scale(0.92);
   transform-origin: top center;
+}
+
+/* ── Form Select / Guest Dropdown Container Styling & Animations ───── */
+.form-select-container {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: pointer !important;
+}
+
+/* Hover: subtle lift and border accent highlight */
+.form-select-container:hover {
+  background-color: #252a31 !important; /* surface-container-high hover state */
+  border-color: rgba(198, 153, 99, 0.4) !important;
+  transform: translateY(-1px);
+}
+
+/* Focus-within active state: gold-bronze border glow matching date selector */
+.form-select-container:focus-within {
+  background-color: #252a31 !important;
+  border-color: #c69963 !important;
+  box-shadow: 0 0 0 2px rgba(198, 153, 99, 0.2) !important;
+}
+
+/* Make select and option elements look beautiful and dark inside form dropdowns */
+select#numGuests {
+  cursor: pointer !important;
+  outline: none !important;
+  border: none !important;
+  appearance: none !important; /* hide default browser arrows to style cleanly */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23c69963'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 12px center !important;
+  background-size: 20px !important;
+  padding-right: 32px !important; /* space for custom arrow */
+}
+
+select#numGuests option {
+  background-color: #1b2026 !important;
+  color: #dee3eb !important;
+  padding: 10px 14px !important;
 }
 
 /* Material Symbols for amenity icons */

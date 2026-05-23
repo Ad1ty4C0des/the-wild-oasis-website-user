@@ -37,17 +37,17 @@ function ReservationForm({ cabin, user }) {
         className="px-unit-lg pb-unit-lg flex gap-4 flex-col"
       >
         {/* Guests */}
-        <div className="bg-surface-container-high p-3 rounded-lg border border-outline-variant/50">
+        <div className="bg-surface-container-high pt-3 pb-2 rounded-lg border border-outline-variant/50 form-select-container">
           <label
             htmlFor="numGuests"
-            className="block font-body text-label-sm text-on-surface-variant uppercase tracking-wider mb-1"
+            className="block font-body text-label-sm text-on-surface-variant uppercase tracking-wider mb-1 px-3"
           >
             Guests
           </label>
           <select
             name="numGuests"
             id="numGuests"
-            className="w-full bg-transparent border-none text-on-surface focus:ring-0 p-0 font-body text-body-md"
+            className="w-full bg-transparent border-none text-on-surface focus:ring-0 px-3 pb-1 pt-0.5 font-body text-body-md"
             required
           >
             <option value="" key="" className="bg-surface-container">
