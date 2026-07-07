@@ -1,0 +1,11 @@
+services:
+  wild-oasis-website:
+    build: .
+    container_name: wild-oasis-website
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    # Runtime env vars — read by the Next.js server when it starts
+    # (NOT baked into the build like Vite)
+    env_file:
+      - .env.local
