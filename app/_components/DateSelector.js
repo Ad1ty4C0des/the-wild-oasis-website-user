@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import {
   differenceInDays,
   isPast,
@@ -21,7 +22,7 @@ function isAlreadyBooked(range, datesArr) {
   );
 }
 
-function DateSelector({ cabin, bookedDates, settings }) {
+function DateSelector({ cabin, bookedDates, settings, dailyDemand = null }) {
   const { range, setRange, resetRange } = useReservation();
 
   // In react-day-picker v9, onSelect can pass undefined when deselecting
@@ -43,6 +44,53 @@ function DateSelector({ cabin, bookedDates, settings }) {
   // SETTINGS
   const { minBookingLength, maxBookingLength } = settings;
 
+  // Build heatmap modifiers from dailyDemand
+  const { demandModifiers, demandModifiersClassNames } = useMemo(() => {
+    if (!dailyDemand || Object.keys(dailyDemand).length === 0) {
+      return { demandModifiers: {}, demandModifiersClassNames: {} };
+    }
+
+    const groups = {
+      low: [],
+      moderate: [],
+      high: [],
+      peak: [],
+    };
+
+    for (const [dateStr, level] of Object.entries(dailyDemand)) {
+      if (groups[level]) {
+        // Construct date using UTC or local parts to avoid timezone shift
+        const [year, month, day] = dateStr.split("-").map(Number);
+        groups[level].push(new Date(year, month - 1, day));
+      }
+    }
+
+    const modifiers = {};
+    const modifiersClassNames = {};
+
+    if (groups.low.length) {
+      modifiers.demandLow = groups.low;
+      modifiersClassNames.demandLow = "demand-low";
+    }
+    if (groups.moderate.length) {
+      modifiers.demandModerate = groups.moderate;
+      modifiersClassNames.demandModerate = "demand-moderate";
+    }
+    if (groups.high.length) {
+      modifiers.demandHigh = groups.high;
+      modifiersClassNames.demandHigh = "demand-high";
+    }
+    if (groups.peak.length) {
+      modifiers.demandPeak = groups.peak;
+      modifiersClassNames.demandPeak = "demand-peak";
+    }
+
+    return {
+      demandModifiers: modifiers,
+      demandModifiersClassNames: modifiersClassNames,
+    };
+  }, [dailyDemand]);
+
   return (
     <div className="flex flex-col">
       <DayPicker
@@ -61,7 +109,27 @@ function DateSelector({ cabin, bookedDates, settings }) {
           isPast(curDate) ||
           bookedDates.some((date) => isSameDay(date, curDate))
         }
+        modifiers={demandModifiers}
+        modifiersClassNames={demandModifiersClassNames}
       />
+
+      {/* Demand Heatmap Legend */}
+      {dailyDemand && (
+        <div className="flex items-center justify-center gap-3.5 pb-3 px-unit-lg flex-wrap border-b border-outline-variant/20 mx-4 mb-2">
+          <span className="flex items-center gap-1.5 text-xs font-body text-on-surface-variant">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400"></span> Low
+          </span>
+          <span className="flex items-center gap-1.5 text-xs font-body text-on-surface-variant">
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-400"></span> Moderate
+          </span>
+          <span className="flex items-center gap-1.5 text-xs font-body text-on-surface-variant">
+            <span className="w-2.5 h-2.5 rounded-full bg-orange-400"></span> High
+          </span>
+          <span className="flex items-center gap-1.5 text-xs font-body text-on-surface-variant">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-400"></span> Peak
+          </span>
+        </div>
+      )}
 
       {/* Price Breakdown */}
       {numNights > 0 && (

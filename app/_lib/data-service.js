@@ -141,13 +141,30 @@ export async function getSettings() {
 
 export async function getCountries() {
   try {
-    const res = await fetch(
-      "https://restcountries.com/v2/all?fields=name,flag"
-    );
-    const countries = await res.json();
+    const res = await fetch("https://flagcdn.com/en/codes.json", {
+      next: { revalidate: 86400 },
+    });
+    if (!res.ok) throw new Error("Could not fetch countries");
+    const data = await res.json();
+    const countries = Object.entries(data)
+      .map(([code, name]) => ({
+        name,
+        flag: `https://flagcdn.com/${code}.svg`,
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name));
     return countries;
   } catch {
-    throw new Error("Could not fetch countries");
+    return [
+      { name: "Australia", flag: "https://flagcdn.com/au.svg" },
+      { name: "Canada", flag: "https://flagcdn.com/ca.svg" },
+      { name: "France", flag: "https://flagcdn.com/fr.svg" },
+      { name: "Germany", flag: "https://flagcdn.com/de.svg" },
+      { name: "India", flag: "https://flagcdn.com/in.svg" },
+      { name: "Italy", flag: "https://flagcdn.com/it.svg" },
+      { name: "Spain", flag: "https://flagcdn.com/es.svg" },
+      { name: "United Kingdom", flag: "https://flagcdn.com/gb.svg" },
+      { name: "United States", flag: "https://flagcdn.com/us.svg" },
+    ];
   }
 }
 

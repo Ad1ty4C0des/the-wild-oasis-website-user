@@ -232,3 +232,68 @@ select#numGuests option {
   font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
 }
 
+
+/* ── Dynamic Pricing Heatmap Styles ───── */
+.demand-low .rdp-day_button,
+.demand-low.rdp-day_button {
+  background-color: rgba(52, 211, 153, 0.08) !important;
+  border-radius: 6px;
+}
+.demand-low .rdp-day_button:hover,
+.demand-low.rdp-day_button:hover {
+  background-color: rgba(52, 211, 153, 0.2) !important;
+}
+
+.demand-moderate .rdp-day_button,
+.demand-moderate.rdp-day_button {
+  background-color: rgba(251, 191, 36, 0.08) !important;
+  border-radius: 6px;
+}
+.demand-moderate .rdp-day_button:hover,
+.demand-moderate.rdp-day_button:hover {
+  background-color: rgba(251, 191, 36, 0.2) !important;
+}
+
+.demand-high .rdp-day_button,
+.demand-high.rdp-day_button {
+  background-color: rgba(251, 146, 60, 0.1) !important;
+  border-radius: 6px;
+}
+.demand-high .rdp-day_button:hover,
+.demand-high.rdp-day_button:hover {
+  background-color: rgba(251, 146, 60, 0.22) !important;
+}
+
+.demand-peak .rdp-day_button,
+.demand-peak.rdp-day_button {
+  background-color: rgba(244, 63, 94, 0.12) !important;
+  border-radius: 6px;
+}
+.demand-peak .rdp-day_button:hover,
+.demand-peak.rdp-day_button:hover {
+  background-color: rgba(244, 63, 94, 0.25) !important;
+}
+
+/* ── Custom Sleek Chat Scrollbar ───── */
+.chat-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(198, 153, 99, 0.35) transparent;
+}
+
+.chat-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chat-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(198, 153, 99, 0.3);
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+.chat-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(198, 153, 99, 0.6);
+}

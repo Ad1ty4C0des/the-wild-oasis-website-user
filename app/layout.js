@@ -3,6 +3,7 @@ import "react-day-picker/dist/style.css";
 import "@/app/_styles/globals.css";
 import Header from "@/app/_components/Header";
 import Footer from "@/app/_components/Footer";
+import ChatWidget from "./_components/ChatWidget";
 import { ReservationProvider } from "./_components/ReservationContext";
 
 const lora = Lora({
@@ -49,6 +50,7 @@ export default function RootLayout({ children }) {
         </div>
 
         <Footer />
+        <ChatWidget />
       </body>
     </html>
   );
